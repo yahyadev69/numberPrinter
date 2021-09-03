@@ -1,4 +1,4 @@
-package com.company;
+package main.com.company;
 
 public class Constants {
     public static final ScreenNumber  ZERO = new ScreenNumber("._.", "|.|", "|_|");

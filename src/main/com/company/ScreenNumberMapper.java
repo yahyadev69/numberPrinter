@@ -1,4 +1,4 @@
-package com.company;
+package main.com.company;
 
 import java.util.*;
 
@@ -20,18 +20,18 @@ public class ScreenNumberMapper {
     }
 
     /**
-     * prints a nist of ScreenNumber
+     * prints a list of ScreenNumber
      * @param numbers: numbers to print
      */
-    public static void printNumbers(List<ScreenNumber> numbers) {
+    public void printNumbers(List<ScreenNumber> numbers) {
         StringBuilder numbersFirsLines = new StringBuilder();
         StringBuilder numbersSecondLines = new StringBuilder();
         StringBuilder numbersThirdLines = new StringBuilder();
 
         numbers.forEach(screenNumber -> {
-            numbersFirsLines.append(screenNumber.getLine1()).append(" ");
-            numbersSecondLines.append(screenNumber.getLine2()).append(" ");
-            numbersThirdLines.append(screenNumber.getLine3()).append(" ");
+            numbersFirsLines.append(screenNumber.getFirstLine()).append(" ");
+            numbersSecondLines.append(screenNumber.getSecondLine()).append(" ");
+            numbersThirdLines.append(screenNumber.getThirdLine()).append(" ");
         });
 
         System.out.println(numbersFirsLines.toString());
@@ -44,12 +44,36 @@ public class ScreenNumberMapper {
      * @param numbers array of string number (0...9)
      * @return ths ScreenNumber format of the number
      */
-    public static List<ScreenNumber> convertToScreenNumber( String [] numbers) {
+    public List<ScreenNumber> convertToScreenNumber( List<String> numbers) {
         Map<Integer, ScreenNumber> basicNumbers = getBasicNumbers();
         List<ScreenNumber> screenNumbers = new ArrayList<>();
-        Arrays.stream(numbers).forEach( strNumber -> screenNumbers.add(basicNumbers.get(Integer.parseInt(strNumber))));
+        numbers.forEach( strNumber -> screenNumbers.add(basicNumbers.get(Integer.parseInt(strNumber))));
         return screenNumbers;
     }
 
+    /**
+     * Kip asking user for a positive integer until he gives it
+     * @return user's entry number in List<String> format
+     */
+    public List<String> getUserEntry () {
+
+        List<String> userEntry = new ArrayList<>();
+
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
+        String replay;
+
+        do {
+            System.out.println("Enter a positive integer: ");
+            replay = reader.nextLine(); // Scans the next token of the input as an int.
+        } while(!replay.matches("[0-9]+"));
+
+        //once finished
+        reader.close();
+
+        for (int i = 0; i < replay.trim().length() ; i++) {
+            userEntry.add(replay.substring(i,i+1));
+        }
+        return userEntry;
+    }
 
 }
